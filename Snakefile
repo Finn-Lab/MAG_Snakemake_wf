@@ -32,16 +32,12 @@ if not os.path.exists("logs"):
 
 
 # LOAD METADATA
-#RUN = []
-#with open("runs.txt") as runs:
- #   for line in runs:
-  #      RUN.append(line.strip())
-
 df_run = pd.read_csv("runs.txt")
 RUN = df_run["Run"]
 
 df_coas = pd.read_csv("coassembly_runs.txt", sep="\t")
 COAS = df_coas["coassembly"]
+
 
 all_outfiles = [
     # Figure 2
