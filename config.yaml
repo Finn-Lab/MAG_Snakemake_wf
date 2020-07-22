@@ -1,0 +1,10 @@
+
+#PATH TO DATABASES
+#
+db:
+  #path to gtdb database
+  gtdb_db: data/databases/release89
+  #path to mash database of RefSeq
+  mash_RefSeq: data/databases/refseq.msh
+
+

@@ -1,0 +1,153 @@
+# vim::w set ft=python:
+
+
+rule raw_fastqc:
+    input:
+        fwd=join(DATA_DIR, "raw/{run}_1.fastq.gz"),
+        rev=join(DATA_DIR, "raw/{run}_2.fastq.gz"),
+    output:
+        join(DATA_DIR, preprocessing_dir, "raw_qc/fastqc/{run}_1_fastqc.html"),
+        join(DATA_DIR, preprocessing_dir, "raw_qc/fastqc/{run}_2_fastqc.html"),
+    params:
+        outdir=directory(join(DATA_DIR, preprocessing_dir, "raw_qc/fastqc/")),
+    threads: workflow.cores
+    singularity:
+        "shub://sskashaf/Containers:preprocessing"
+    shell:
+        """
+        fastqc {input.fwd} --outdir {params.outdir}
+        fastqc {input.rev} --outdir {params.outdir}
+        """
+
+
+rule raw_multiqc:
+    input:
+        expand(join(DATA_DIR, preprocessing_dir, "raw_qc/fastqc/{run}_{read}_fastqc.html"), run=RUN, read=["1", "2"]),
+    output:
+        join(DATA_DIR, preprocessing_dir, "raw_qc/multiqc/raw_multiqc_report.html"),
+    params:
+        indir=join(DATA_DIR, preprocessing_dir, "raw_qc/fastqc/"),
+        outdir=join(DATA_DIR, preprocessing_dir, "raw_qc/multiqc/"),
+        outfile=join(DATA_DIR, preprocessing_dir, "raw_qc/multiqc/multiqc_report.html"),
+    singularity:
+        "shub://sskashaf/Containers:preprocessing"
+    shell:
+        """
+        rm -f {params.outfile}
+        multiqc {params.indir} -o {params.outdir}
+        mv {params.outfile} {output}
+        """
+
+
+rule kneaddata_download_database:
+    output:
+        join(DATA_DIR, "databases/human_genome_index/hg37dec_v0.1.1.bt2"),
+        join(DATA_DIR, "databases/human_genome_index/hg37dec_v0.1.2.bt2"),
+        join(DATA_DIR, "databases/human_genome_index/hg37dec_v0.1.3.bt2"),
+        join(DATA_DIR, "databases/human_genome_index/hg37dec_v0.1.4.bt2"),
+        join(DATA_DIR, "databases/human_genome_index/hg37dec_v0.1.rev.1.bt2"),
+        join(DATA_DIR, "databases/human_genome_index/hg37dec_v0.1.rev.2.bt2"),
+    params:
+        outdir="data/databases/human_genome_index/",
+    singularity:
+        "shub://sskashaf/Containers:preprocessing"
+    shell:
+        """
+        kneaddata_database --download human_genome bowtie2 {params.outdir}
+        """
+
+
+rule kneaddata_bowtie:
+    input:
+        fwd=join(DATA_DIR, "raw/{run}_1.fastq.gz"),
+        rev=join(DATA_DIR, "raw/{run}_2.fastq.gz"),
+        indx1=join(DATA_DIR, "databases/human_genome_index/hg37dec_v0.1.1.bt2"),
+        indx2=join(DATA_DIR, "databases/human_genome_index/hg37dec_v0.1.2.bt2"),
+        indx3=join(DATA_DIR, "databases/human_genome_index/hg37dec_v0.1.3.bt2"),
+        indx4=join(DATA_DIR, "databases/human_genome_index/hg37dec_v0.1.4.bt2"),
+        indx5=join(DATA_DIR, "databases/human_genome_index/hg37dec_v0.1.rev.1.bt2"),
+        indx6=join(DATA_DIR, "databases/human_genome_index/hg37dec_v0.1.rev.2.bt2"),
+    output:
+        fwd=join(DATA_DIR, preprocessing_dir, "processed/singlerun/{run}_1.fastq"),
+        rev=join(DATA_DIR, preprocessing_dir, "processed/singlerun/{run}_2.fastq"),
+    params:
+        fwd=join(DATA_DIR, preprocessing_dir, "kneaddata_bowtie/{run}_1_kneaddata_paired_1.fastq"),
+        rev=join(DATA_DIR, preprocessing_dir, "kneaddata_bowtie/{run}_1_kneaddata_paired_2.fastq"),
+        outdir=directory(join(DATA_DIR, preprocessing_dir, "kneaddata_bowtie/")),
+        indx=join(DATA_DIR, "databases/human_genome_index/"),
+    singularity:
+        "shub://sskashaf/Containers:preprocessing"
+    threads: workflow.cores
+    shell:
+        """
+        mkdir -p {params.outdir}
+        kneaddata --remove-intermediate-output --threads {threads} \
+        --input {input.fwd} --input {input.rev}\
+        --output {params.outdir} \
+        --reference-db {params.indx} \
+        --trimmomatic-options "SLIDINGWINDOW:4:20 MINLEN:50" --trimmomatic /data/\
+        --bowtie2-options "--very-sensitive --dovetail"  --no-discordant
+        scp {params.fwd} {output.fwd}
+        scp {params.rev} {output.rev}
+        """
+
+
+rule postpreprocessing_fastqc:
+    input:
+        fwd=join(DATA_DIR, preprocessing_dir, "processed/singlerun/{run}_1.fastq"),
+        rev=join(DATA_DIR, preprocessing_dir, "processed/singlerun/{run}_2.fastq"),
+    output:
+        join(DATA_DIR, preprocessing_dir, "postprocessing_qc/fastqc/{run}_1_fastqc.html"),
+        join(DATA_DIR, preprocessing_dir, "postprocessing_qc/fastqc/{run}_2_fastqc.html"),
+    params:
+        outdir=directory(join(DATA_DIR, preprocessing_dir, "postprocessing_qc/fastqc/")),
+    threads: workflow.cores
+    singularity:
+        "shub://sskashaf/Containers:preprocessing"
+    shell:
+        """
+        fastqc {input.fwd} --outdir {params.outdir}
+        fastqc {input.rev} --outdir {params.outdir}
+        """
+
+
+rule postpreprocessing_multiqc:
+    input:
+        expand(join(DATA_DIR, preprocessing_dir, "postprocessing_qc/fastqc/{run}_{read}_fastqc.html"), run=RUN, read=["1", "2"]),
+    output:
+        join(DATA_DIR, preprocessing_dir, "postprocessing_qc/multiqc/post_multiqc_report.html"),
+    params:
+        indir=join(DATA_DIR, preprocessing_dir, "postprocessing_qc/fastqc/"),
+        outdir=join(DATA_DIR, preprocessing_dir, "postprocessing_qc/multiqc/"),
+        outfile=join(DATA_DIR, preprocessing_dir, "postprocessing_qc/multiqc/multiqc_report.html"),
+    singularity:
+        "shub://sskashaf/Containers:preprocessing"
+    shell:
+        """
+        multiqc --force {params.indir} -o {params.outdir}
+        mv {params.outfile} {output}
+        """
+
+
+def linecount(fastq):
+    out = os.system("zcat -f ", fastq, " | wc -l")
+    count = int(out.strip().split()[0])/4
+    return count
+
+
+rule readcount_fq:
+    input:
+        raw=expand(join(DATA_DIR, preprocessing_dir, "processed/singlerun/{run}_{read}.fastq"), run=RUN, read=["1", "2"]),
+    output:
+        join(DATA_DIR, preprocessing_dir, "readcounts.tsv"),
+    run:
+        outfile = str(output)
+        if os.path.exists(outfile):
+            os.remove(outfile)
+        with open(outfile, "w") as outf:
+            outf.writelines("Run\tReadcount\n")
+            for run in input:
+                readcount = int(linecount(run))
+                line = "\t".join([run, str(readcount)])
+                outf.writelines(line, "\n")
+
