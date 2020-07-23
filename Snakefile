@@ -52,7 +52,7 @@ all_outfiles = [
     # Figure 3c
      join(DATA_DIR,"figures/gtdb_bacteria.png"),
     # Figure 4
-     join(DATA_DIR,"figures/perassemb_perref.png"),
+     join(DATA_DIR,"figures/perassemb_perref.png")
 ]
 
 rule all:
