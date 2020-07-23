@@ -9,7 +9,7 @@ checkpoint dRep:
         out=join(DATA_DIR, binning_analyses, "singlerun/dRep/data_tables/Sdb.csv"),
     threads: workflow.cores
     singularity:
-        "shub://sskashaf/Containers:drep."
+        "shub://sskashaf/Containers:drep"
     params:
         indir=join(DATA_DIR, binning_analyses, "singlerun/all_metawrap_bins/"),
         outdir=join(DATA_DIR, binning_analyses, "singlerun/dRep/"),
@@ -46,7 +46,7 @@ checkpoint dRep_coas:
         out=join(DATA_DIR, binning_analyses, "singlerun_coassembly/dRep/data_tables/Sdb.csv"),
     threads: workflow.cores
     singularity:
-        "shub://sskashaf/Containers:drep."
+        "shub://sskashaf/Containers:drep"
     params:
         indir=join(DATA_DIR, binning_analyses, "singlerun_coassembly/bins_dRep_singlerun_coas/"),
         singlerun_dRep=join(DATA_DIR, binning_analyses, "singlerun/dRep/dereplicated_genomes"),
