@@ -130,10 +130,9 @@ rule postpreprocessing_multiqc:
 
 
 def linecount(fastq):
-    out = os.system("zcat -f ", fastq, " | wc -l")
-    count = int(out.strip().split()[0])/4
+    out = subprocess.Popen("zcat -f "+fastq+" | wc -l", stdout=subprocess.PIPE, shell=True).communicate()[0]
+    count=int(out.strip())/4
     return count
-
 
 rule readcount_fq:
     input:
@@ -149,5 +148,5 @@ rule readcount_fq:
             for run in input:
                 readcount = int(linecount(run))
                 line = "\t".join([run, str(readcount)])
-                outf.writelines(line, "\n")
+                outf.writelines(line + "\n")
 

@@ -1,0 +1,214 @@
+__default__:
+    nCPU: 1
+    mem: 8000
+    name      : "{rule}"
+    output    : "logs/{rule}.%J.o"
+    error     : "logs/{rule}.%J.e"
+    time: "03:30:00"
+
+
+
+sra_download:
+    mem : 2000
+    nCPU: 10
+    time : "01:00:00"
+    output : "logs/{rule}.%J.o"
+    error : "logs/{rule}.%J.e"
+
+
+
+kneaddata_bowtie:
+    nCPU: 4
+    mem: 40000
+    name      : "{rule}"
+    output    : "logs/{rule}.%J.o"
+    error     : "logs/{rule}.%J.e"
+    time      : "04:30:00"
+
+
+
+sort:
+    mem : 6000
+    nCPU : 20
+    output : "logs/{rule}.%J.o"
+    error : "logs/{rule}.%J.e"
+    time: "01:00:00"
+
+zip_file:
+    nCPU: 1
+    mem: 5000
+    name      : "{rule}"
+    output    : "logs/{rule}.%J.o"
+    error     : "logs/{rule}.%J.e"
+    time      : "02:30:00"
+
+
+
+spades:
+    nCPU: 30
+    mem: 60000
+    name      : "{rule}"
+    output    : "logs/{rule}.%J.o"
+    error     : "logs/{rule}.%J.e"
+    time      : "11:00:00"
+
+spades_coas:
+    nCPU: 30
+    mem: 200000
+    name      : "{rule}"
+    output    : "logs/{rule}.%J.o"
+    error     : "logs/{rule}.%J.e"
+    time      : "3-00:00:00"
+
+
+
+metawrap_binning:
+    mem : 15000
+    nCPU: 10
+    time : "6:00:00"
+    output : "logs/{rule}.%J.o"
+    error : "logs/{rule}.%J.e"
+
+metawrap_binning_coas:
+    mem : 20000
+    nCPU: 10
+    time : "10:00:00"
+    output : "logs/{rule}.%J.o"
+    error : "logs/{rule}.%J.e"
+
+
+
+bin_refinement:
+    mem : 100000
+    nCPU: 30
+    time : "5:00:00"
+    output : "logs/{rule}.%J.o"
+    error : "logs/{rule}.%J.e"
+
+bin_refinement_coas:
+    mem : 100000
+    nCPU: 30
+    time : "4-07:00:00"
+    output : "logs/{rule}.%J.o"
+    error : "logs/{rule}.%J.e"
+
+checkm:
+    mem: 130000
+    nCPU: 10
+    time : "20:00:00"
+    output : "logs/{rule}.%J.o"
+    error : "logs/{rule}.%J.e"
+
+checkm_coas:
+    mem : 130000
+    nCPU: 30
+    time : "20:00:00"
+    output : "logs/{rule}.%J.o"
+    error : "logs/{rule}.%J.e"
+
+
+
+mashdist:
+    mem : 1000
+    nCPU: 1
+    time : "00:30:00"
+    output : "logs/{rule}.%J.o"
+    error : "logs/{rule}.%J.e"
+
+dnadiff:
+    mem : 5000
+    nCPU: 2
+    time : "02:30:00"
+    output : "logs/{rule}.%J.o"
+    error : "logs/{rule}.%J.e"
+
+
+
+prokka:
+    mem : 2000
+    nCPU : 2
+    time : "02:00:00"
+    output : "logs/{rule}.%J.o"
+    error : "logs/{rule}.%J.e"
+
+prokka_coas:
+    mem : 100000
+    nCPU : 2
+    time : "00:40:00"
+    output : "logs/{rule}.%J.o"
+    error : "logs/{rule}.%J.e"
+
+cmseq:
+    mem : 4000
+    nCPU : 2
+    time : "02:00:00"
+    output : "logs/{rule}.%J.o"
+    error : "logs/{rule}.%J.e"
+
+cmseq_coas:
+    mem : 10000
+    nCPU : 2
+    time : "10:00:00"
+    output : "logs/{rule}.%J.o"
+    error : "logs/{rule}.%J.e"
+
+
+
+dRep_95:
+    mem : 10000
+    nCPU : 30
+    time : "5:00:00"
+    output : "logs/{rule}.%J.o"
+    error : "logs/{rule}.%J.e"
+
+dRep_95_coas:
+    mem : 10000
+    nCPU : 30
+    time : "5:00:00"
+    output : "logs/{rule}.%J.o"
+    error : "logs/{rule}.%J.e"
+
+GTDB_TK:
+    mem : 400000
+    nCPU: 2
+    time : "10:30:00"
+    output : "logs/{rule}.%J.o"
+    error : "logs/{rule}.%J.e"
+
+
+
+mapreads_scaffold:
+    nCPU: 10
+    mem: 5000
+    name      : "{rule}"
+    output    : "logs/{rule}.%J.o"
+    error     : "logs/{rule}.%J.e"
+    time      : "01:00:00"
+
+cat_MAGs:
+    mem : 6000
+    nCPU : 10
+    time : "03:00:00"
+    output : "logs/{rule}.%J.o"
+    error : "logs/{rule}.%J.e"
+
+cat_MAGs_coas:
+    mem : 6000
+    nCPU : 10
+    time : "03:00:00"
+    output : "logs/{rule}.%J.o"
+    error : "logs/{rule}.%J.e"
+
+readmap:
+    mem : 5000
+    nCPU: 10
+    time : "02:30:00"
+    output : "logs/{rule}.%J.o"
+    error : "logs/{rule}.%J.e"
+
+readmap_coassembly:
+    mem : 5000
+    nCPU: 10
+    time : "04:50:00"
+    output : "logs/{rule}.%J.o"
+    error : "logs/{rule}.%J.e"
