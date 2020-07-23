@@ -30,7 +30,7 @@ rule raw_multiqc:
         outdir=join(DATA_DIR, preprocessing_dir, "raw_qc/multiqc/"),
         outfile=join(DATA_DIR, preprocessing_dir, "raw_qc/multiqc/multiqc_report.html"),
     singularity:
-        "shub://sskashaf/Containers:preprocessing"
+        "docker://quay.io/biocontainers/multiqc:1.3--py35_2"
     shell:
         """
         rm -f {params.outfile}
@@ -121,7 +121,7 @@ rule postpreprocessing_multiqc:
         outdir=join(DATA_DIR, preprocessing_dir, "postprocessing_qc/multiqc/"),
         outfile=join(DATA_DIR, preprocessing_dir, "postprocessing_qc/multiqc/multiqc_report.html"),
     singularity:
-        "shub://sskashaf/Containers:preprocessing"
+        "docker://quay.io/biocontainers/multiqc:1.3--py35_2"
     shell:
         """
         multiqc --force {params.indir} -o {params.outdir}
