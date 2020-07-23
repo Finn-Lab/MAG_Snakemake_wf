@@ -14,7 +14,6 @@ rule mapreads_scaffold:
     params:
         dir=join(DATA_DIR, assembly_dir, "singlerun/{run}/mapreads"),
         scaffold=join(DATA_DIR, assembly_dir, "singlerun/{run}/{run}_scaffolds.fasta"),
-        aligned=join(DATA_DIR, assembly_dir, "singlerun/{run}/mapreads/aligned.bam"),
         alignedsorted=join(DATA_DIR, assembly_dir, "singlerun//{run}/mapreads/alignedsorted.bam"),
     singularity:
         "shub://sskashaf/Containers:framework."
@@ -24,11 +23,10 @@ rule mapreads_scaffold:
         mkdir -p {params.dir}
         scp {input.scaffold} {params.scaffold}
         bwa index {params.scaffold}
-        bwa mem -t 10 {params.scaffold} {input.fwd} {input.rev} | samtools view -bS - > {params.aligned}
-        samtools sort -@ {threads} -o {params.alignedsorted} {params.aligned}
+        bwa mem -t {threads} {params.scaffold} {input.fwd} {input.rev} | samtools view -bS - | \
+        samtools sort -@ {threads} -o {params.alignedsorted} -
         samtools index {params.alignedsorted}
         samtools flagstat {params.alignedsorted} > {output.flagstat}
-        rm {params.aligned}
         rm {params.alignedsorted}
         """
 
