@@ -80,7 +80,7 @@ rule GTDB_TK:
         real=$(realpath {input.gtdbrelease})
         rm -rf {params.outdir} 
         export GTDBTK_DATA_PATH=${{real}}
-        gtdbtk clasy_wf --cpus {threads} --genome_dir {params.indir} --out_dir {params.outdir} -x fa
+        gtdbtk classify_wf --cpus {threads} --genome_dir {params.indir} --out_dir {params.outdir} -x fa
         """
 
 
