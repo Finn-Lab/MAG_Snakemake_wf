@@ -3,7 +3,6 @@
 
 # READS MAPPING TO ASSEMBLY
 
-
 rule mapreads_scaffold:
     input:
         fwd=join(DATA_DIR, preprocessing_dir, "processed/singlerun/{run}_1.fastq"),
@@ -63,8 +62,6 @@ rule aggregate_mapreads_scaffold:
 
 
 # READ MAPPING TO MAGS
-
-
 
 rule cat_MAGs:
     input:
@@ -208,8 +205,6 @@ rule write_scaffold_coas:
 
 
 # PLOTTING
-
-
 
 rule plot_framework:
     input:
