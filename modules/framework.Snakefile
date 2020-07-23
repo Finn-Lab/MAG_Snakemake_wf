@@ -15,7 +15,7 @@ rule mapreads_scaffold:
         scaffold=join(DATA_DIR, assembly_dir, "singlerun/{run}/{run}_scaffolds.fasta"),
         alignedsorted=join(DATA_DIR, assembly_dir, "singlerun//{run}/mapreads/alignedsorted.bam"),
     singularity:
-        "shub://sskashaf/Containers:framework."
+        "shub://sskashaf/Containers:framework"
     shell:
         """
         rm -rf {params.dir}
