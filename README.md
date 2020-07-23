@@ -1,6 +1,6 @@
 ## Getting Started
 
-These instructions will help you setup this workflow for your own analyses
+These instructions will help you setup to run this workflow
 
 ### Setup workflow
 
@@ -19,6 +19,8 @@ Next generate a Mash sketch of the database with default k-mer and sketch size u
 ```
 mash sketch -o refseq.msh /path/to/RefSeq/*fasta
 ```
+Move the GTDB database and the Mash sketch to the subfolder /data/databases/
+
 
 ### Installing
 
