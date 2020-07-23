@@ -41,8 +41,8 @@ COAS = df_coas["coassembly"]
 
 all_outfiles = [
     # Figure 2
-     join(DATA_DIR,preprocessing_dir+"raw_qc/multiqc/raw_multiqc_report.html"),
-     join(DATA_DIR,preprocessing_dir+"postprocessing_qc/multiqc/post_multiqc_report.html"),
+     join(DATA_DIR,preprocessing_dir, "raw_qc/multiqc/raw_multiqc_report.html"),
+     join(DATA_DIR,preprocessing_dir, "postprocessing_qc/multiqc/post_multiqc_report.html"),
     # Figure 3a
      join(DATA_DIR,"figures/cmseq_plot.png"),
      join(DATA_DIR,"figures/checkm_contam.png"),
