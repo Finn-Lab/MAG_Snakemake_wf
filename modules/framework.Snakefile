@@ -25,7 +25,7 @@ rule mapreads_scaffold:
         scp {input.scaffold} {params.scaffold}
         bwa index {params.scaffold}
         bwa mem -t 10 {params.scaffold} {input.fwd} {input.rev} | samtools view -bS - > {params.aligned}
-        samtools sort -o {params.alignedsorted} {params.aligned}
+        samtools sort -@ {threads} -o {params.alignedsorted} {params.aligned}
         samtools index {params.alignedsorted}
         samtools flagstat {params.alignedsorted} > {output.flagstat}
         rm {params.aligned}
