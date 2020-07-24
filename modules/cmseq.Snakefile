@@ -110,12 +110,12 @@ rule cmseq:
             "singlerun/cmseq/{sample}/refined_bins_50_10_renamed/{sample}_metawrap_refined_{file}.gff",
         ),
     output:
-        join(DATA_DIR, binning_analyses, "singlerun/cmseq/{sample}/refined_bins_50_10_renamed/{sample}_{file}.cmseq.csv"),
+        join(DATA_DIR, binning_analyses, "singlerun/cmseq/{sample}/refined_bins_50_10_renamed/{sample}_metawrap_refined_{file}.cmseq.csv"),
     threads: workflow.cores
     singularity:
         "shub://sskashaf/Containers:cmseq"
     params:
-        name=join(DATA_DIR, binning_analyses, "singlerun/cmseq/{sample}/refined_bins_50_10_renamed/{sample}_{file}"),
+        name=join(DATA_DIR, binning_analyses, "singlerun/cmseq/{sample}/refined_bins_50_10_renamed/{sample}_metawrap_refined_{file}"),
         dir=join(DATA_DIR, binning_analyses, "singlerun/cmseq/{sample}/refined_bins_50_10_renamed/"),
     shell:
         """
@@ -139,7 +139,7 @@ rule cmseq_coas:
         cmseq=join(
             DATA_DIR,
             binning_analyses,
-            "singlerun_coassembly/cmseq/{sample}/refined_bins_50_10_renamed/{sample}_{file}.cmseq.csv",
+            "singlerun_coassembly/cmseq/{sample}/refined_bins_50_10_renamed/{sample}_metawrap_refined_{file}.cmseq.csv",
         ),
         done=join(
             DATA_DIR,
@@ -152,7 +152,7 @@ rule cmseq_coas:
     params:
         r1=lambda wildcards: get_sample_reads(wildcards.sample)["r1"],
         name=join(
-            DATA_DIR, binning_analyses, "singlerun_coassembly/cmseq/{sample}/refined_bins_50_10_renamed/{sample}_{file}"
+            DATA_DIR, binning_analyses, "singlerun_coassembly/cmseq/{sample}/refined_bins_50_10_renamed/{sample}_metawrap_refined_{file}"
         ),
     shell:
         """
