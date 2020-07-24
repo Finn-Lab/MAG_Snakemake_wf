@@ -57,7 +57,7 @@ rule aggregate_mapreads_scaffold:
                 mapped = dict["pass_qc"]["mapped"]
                 total = dict["pass_qc"]["total"]
                 perc = (mapped / total) * 100
-                outf.write(str(run), "\t", str(perc), "\n")
+                outf.write(str(run) + "\t" + str(perc) + "\n")
         outf.close()
 
 
@@ -179,7 +179,7 @@ rule write_scaffold:
                 mapped = dict["pass_qc"]["mapped"]
                 total = dict["pass_qc"]["total"]
                 perc = ((mapped - supplementary - secondary) / total) * 100
-                outf.write(str(run), "\t", str(perc), "\n")
+                outf.write(str(run) + "\t" + str(perc) + "\n")
         outf.close()
 
 
@@ -200,7 +200,7 @@ rule write_scaffold_coas:
                 mapped = dict["pass_qc"]["mapped"]
                 total = dict["pass_qc"]["total"]
                 perc = ((mapped - supplementary - secondary) / total) * 100
-                outf.write(str(run), "\t", str(perc), "\n")
+                outf.write(str(run) + "\t" + str(perc) + "\n")
         outf.close()
 
 

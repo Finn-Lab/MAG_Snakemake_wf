@@ -9,7 +9,8 @@ rule mash_dist:
         join(DATA_DIR, binning_analyses, "singlerun_coassembly/MAG_RefSeq/mashdist/{sample}_metawrap_refined_{i}.tab"),
     threads: workflow.cores
     singularity:
-        "shub://sskashaf/Containers:isolatescompare"
+       # "shub://sskashaf/Containers:isolatescompare"
+        "docker://quay.io/biocontainers/mash:2.2.1--h3d38be6_0"
     shell:
         "mash dist -p {threads} {input.db} {input.bins} > {output}"
 
@@ -41,7 +42,8 @@ rule dnadiff:
         outdir=join(DATA_DIR, binning_analyses, "singlerun_coassembly/MAG_RefSeq/dnadiff"),
         bins="{sample}_metawrap_refined_{i}",
     singularity:
-        "shub://sskashaf/Containers:isolatescompare"
+     #   "shub://sskashaf/Containers:isolatescompare"
+         "docker://quay.io/biocontainers/mummer:3.23--pl526_7"
     shell:
         """
         while read col1 col2 rem

@@ -71,15 +71,16 @@ rule GTDB_TK:
         join(DATA_DIR, binning_analyses, "singlerun_coassembly/GTDB/gtdbtk.bac120.summary.tsv"),
     threads: workflow.cores
     params:
-        indir=directory(join(DATA_DIR, binning_analyses, "singlerun_coassembly/dereplicated_genomes/")),
+        indir=directory(join(DATA_DIR, binning_analyses, "singlerun_coassembly/dRep/dereplicated_genomes/")),
         outdir=join(DATA_DIR, binning_analyses, "singlerun_coassembly/GTDB/"),
         ext="fa"
     singularity:
-        "shub://sskashaf/Containers:gtdbtk"
+        "docker://quay.io/biocontainers/gtdbtk:1.2.0--py_1"
+#        "shub://sskashaf/Containers:gtdbtk"
     shell:
         """
         real=$(realpath {input.gtdbrelease})
-        rm -rf {params.outdir} 
+        rm -rf {params.outdir}
         export GTDBTK_DATA_PATH=${{real}}
         gtdbtk classify_wf --cpus {threads} --genome_dir {params.indir} --out_dir {params.outdir} -x {params.ext}
         """
