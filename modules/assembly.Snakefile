@@ -15,7 +15,7 @@ checkpoint spades:
         time=lambda wildcards, attempt: 10 * attempt,
         mem=lambda wildcards, attempt: 100 * attempt,
     singularity:
-        "shub://sskashaf/Containers:assembly"
+        "shub://sskashaf/MAG_wf_containers:assembly"
     shell:
         """
         rm -rf {params.outdir}
@@ -39,7 +39,7 @@ checkpoint spades_coas:
     params:
         outdir=join(DATA_DIR, assembly_dir, "coassembly/{run}/"),
     singularity:
-        "shub://sskashaf/Containers:assembly"
+        "shub://sskashaf/MAG_wf_containers:assembly"
     shell:
         """
         rm -rf {params.outdir}

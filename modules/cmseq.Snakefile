@@ -113,7 +113,7 @@ rule cmseq:
         join(DATA_DIR, binning_analyses, "singlerun/cmseq/{sample}/refined_bins_50_10_renamed/{sample}_metawrap_refined_{file}.cmseq.csv"),
     threads: workflow.cores
     singularity:
-        "shub://sskashaf/Containers:cmseq"
+        "shub://sskashaf/MAG_wf_containers:cmseq"
     params:
         name=join(DATA_DIR, binning_analyses, "singlerun/cmseq/{sample}/refined_bins_50_10_renamed/{sample}_metawrap_refined_{file}"),
         dir=join(DATA_DIR, binning_analyses, "singlerun/cmseq/{sample}/refined_bins_50_10_renamed/"),
@@ -148,7 +148,7 @@ rule cmseq_coas:
         ),
     threads: workflow.cores
     singularity:
-        "shub://sskashaf/Containers:cmseq"
+        "shub://sskashaf/MAG_wf_containers:cmseq"
     params:
         r1=lambda wildcards: get_sample_reads(wildcards.sample)["r1"],
         name=join(
@@ -246,7 +246,7 @@ rule plot_cmseq:
     output:
         join(DATA_DIR, "figures/cmseq_plot.png"),
     singularity:
-        "shub://sskashaf/Containers:r"
+        "shub://sskashaf/MAG_wf_containers:r"
     shell:
         """
         Rscript scripts/plotting/plot_cmseq.R {input.sr} {input.coas}

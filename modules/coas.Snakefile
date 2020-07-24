@@ -32,7 +32,7 @@ rule sort:
         fwd=join(DATA_DIR, preprocessing_dir, "processed/coassembly/{run}_sorted_1.fastq"),
         rev=join(DATA_DIR, preprocessing_dir, "processed/coassembly/{run}_sorted_2.fastq"),
     singularity:
-        "shub://sskashaf/Containers:assembly"
+        "shub://sskashaf/MAG_wf_containers:assembly"
     shell:
         """
         repair.sh in={input.fwd} in2={input.rev} out={output.fwd} out2={output.rev} repair

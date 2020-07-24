@@ -23,8 +23,8 @@ rule best_mash:
     output:
         join(DATA_DIR, binning_analyses, "singlerun_coassembly/MAG_RefSeq/best_mash/{sample}_metawrap_refined_{i}.tab"),
     threads: workflow.cores
-    singularity:
-        "shub://sskashaf/Containers:isolatescompare"
+#    singularity:
+ #       "shub://sskashaf/Containers:isolatescompare"
     shell:
         """
         sort -gk3 {input.mashdist}|sed -n 1p >{output}
@@ -143,7 +143,7 @@ rule plot_dnadiff:
     output:
         join(DATA_DIR, "figures/dnadiff.png"),
     singularity:
-        "shub://sskashaf/Containers:r"
+        "shub://sskashaf/MAG_wf_containers:r"
     shell:
         """
         Rscript scripts/plotting/dnadiff_plot.R {input.checkm_sr} {input.checkm_coas} {input.summ}

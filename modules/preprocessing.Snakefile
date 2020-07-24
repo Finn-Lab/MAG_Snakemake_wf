@@ -12,7 +12,7 @@ rule raw_fastqc:
         outdir=directory(join(DATA_DIR, preprocessing_dir, "raw_qc/fastqc/")),
     threads: workflow.cores
     singularity:
-        "shub://sskashaf/Containers:preprocessing"
+        "shub://sskashaf/MAG_wf_containers:preprocessing"
     shell:
         """
         fastqc {input.fwd} --outdir {params.outdir}
@@ -50,7 +50,7 @@ rule kneaddata_download_database:
     params:
         outdir="data/databases/human_genome_index/",
     singularity:
-        "shub://sskashaf/Containers:preprocessing"
+        "shub://sskashaf/MAG_wf_containers:preprocessing"
     shell:
         """
         kneaddata_database --download human_genome bowtie2 {params.outdir}
@@ -76,7 +76,7 @@ rule kneaddata_bowtie:
         outdir=directory(join(DATA_DIR, preprocessing_dir, "kneaddata_bowtie/")),
         indx=join(DATA_DIR, "databases/human_genome_index/"),
     singularity:
-        "shub://sskashaf/Containers:preprocessing"
+        "shub://sskashaf/MAG_wf_containers:preprocessing"
     threads: workflow.cores
     shell:
         """
@@ -103,7 +103,7 @@ rule postpreprocessing_fastqc:
         outdir=directory(join(DATA_DIR, preprocessing_dir, "postprocessing_qc/fastqc/")),
     threads: workflow.cores
     singularity:
-        "shub://sskashaf/Containers:preprocessing"
+        "shub://sskashaf/MAG_wf_containers:preprocessing"
     shell:
         """
         fastqc {input.fwd} --outdir {params.outdir}

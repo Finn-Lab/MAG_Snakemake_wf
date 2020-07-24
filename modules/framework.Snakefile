@@ -15,7 +15,7 @@ rule mapreads_scaffold:
         scaffold=join(DATA_DIR, assembly_dir, "singlerun/{run}/{run}_scaffolds.fasta"),
         alignedsorted=join(DATA_DIR, assembly_dir, "singlerun//{run}/mapreads/alignedsorted.bam"),
     singularity:
-        "shub://sskashaf/Containers:framework"
+        "shub://sskashaf/MAG_wf_containers:framework"
     shell:
         """
         rm -rf {params.dir}
@@ -36,7 +36,7 @@ rule parse_mapreads_scaffold:
     output:
         join(DATA_DIR, assembly_dir, "singlerun/{run}/mapreads/flagstat_parsed.txt"),
     singularity:
-        "shub://sskashaf/Containers:framework"
+        "shub://sskashaf/MAG_wf_containers:framework"
     shell:
         """
         crimson flagstat {input}>{output}
@@ -69,7 +69,7 @@ rule cat_MAGs:
     output:
         join(DATA_DIR, binning_analyses, "singlerun/framework/bwa-ref_name_vf/ref-db.fasta"),
     singularity:
-        "shub://sskashaf/Containers:framework"
+        "shub://sskashaf/MAG_wf_containers:framework"
     params:
         indir=join(DATA_DIR, binning_analyses, "singlerun/dRep/dereplicated_genomes/"),
     shell:
@@ -85,7 +85,7 @@ rule cat_MAGs_coas:
     output:
         join(DATA_DIR, binning_analyses, "singlerun_coassembly/framework/bwa-ref_name_vf/ref-db.fasta"),
     singularity:
-        "shub://sskashaf/Containers:framework"
+        "shub://sskashaf/MAG_wf_containers:framework"
     params:
         indir=join(DATA_DIR, binning_analyses, "singlerun_coassembly/dRep/dereplicated_genomes/"),
     shell:
@@ -105,7 +105,7 @@ rule readmap:
     params:
         alignedsorted=join(DATA_DIR, binning_analyses, "singlerun/framework/mapreads/flagstat/tmp_{run}.bam"),
     singularity:
-        "shub://sskashaf/Containers:framework"
+        "shub://sskashaf/MAG_wf_containers:framework"
     shell:
         """
         bwa mem -t {threads} {input.catalogue} {input.fwd} {input.rev} \
@@ -126,7 +126,7 @@ rule readmap_coassembly:
     params:
         alignedsorted=join(DATA_DIR, binning_analyses, "singlerun_coassembly/framework/mapreads/flagstat/tmp_{run}.bam"),
     singularity:
-        "shub://sskashaf/Containers:framework"
+        "shub://sskashaf/MAG_wf_containers:framework"
     shell:
         """
         bwa mem -t {threads} {input.catalogue} {input.fwd} {input.rev}\
@@ -143,7 +143,7 @@ rule parse_readmap:
     output:
         join(DATA_DIR, binning_analyses, "singlerun/framework/mapreads/flagstat_parsed/{run}.txt"),
     singularity:
-        "shub://sskashaf/Containers:framework"
+        "shub://sskashaf/MAG_wf_containers:framework"
     shell:
         """
         crimson flagstat {input}>{output}
@@ -156,7 +156,7 @@ rule parse_readmap_coas:
     output:
         join(DATA_DIR, binning_analyses, "singlerun_coassembly/framework/mapreads/flagstat_parsed/{run}.txt"),
     singularity:
-        "shub://sskashaf/Containers:framework"
+        "shub://sskashaf/MAG_wf_containers:framework"
     shell:
         """
         crimson flagstat {input}>{output}
@@ -216,7 +216,7 @@ rule plot_framework:
     output:
         join(DATA_DIR, "figures/perassemb_perref.png"),
     singularity:
-        "shub://sskashaf/Containers:r"
+        "shub://sskashaf/MAG_wf_containers:r"
     shell:
         """
         Rscript scripts/plotting/plot_framework.R {input.readcounts} {input.flagstat} {input.mapreads_sr} {input.mapreads_coas}
