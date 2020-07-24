@@ -148,7 +148,7 @@ rule cmseq_coas:
         ),
     threads: workflow.cores
     singularity:
-        "shub://sskashaf/Containers:cmseq."
+        "shub://sskashaf/Containers:cmseq"
     params:
         r1=lambda wildcards: get_sample_reads(wildcards.sample)["r1"],
         name=join(
