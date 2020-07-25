@@ -158,7 +158,6 @@ rule cmseq_coas:
         """
         rm -f {output.cmseq}
         rm -f {output.done}
-
         for i in {params.r1}; do run=$(basename ${{i}} _1.fastq); scripts/cmseq.sh\
         -t {threads} -i ${{i}} -n ${{i%%_1.fastq}}_2.fastq -r {input.MAG} -g {input.prokka}\
         -o {params.name}_${{run}}; awk 'NR==2' {params.name}_${{run}}.cmseq.csv >> {output.cmseq};done

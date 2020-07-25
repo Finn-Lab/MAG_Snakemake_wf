@@ -94,4 +94,6 @@ rule plot_GTDB:
     singularity:
         "shub://sskashaf/MAG_wf_containers:r"
     shell:
-        "Rscript scripts/plotting/plot_gtdb.R {input}"
+        """
+        Rscript scripts/plotting/plot_gtdb.R {input}
+        """

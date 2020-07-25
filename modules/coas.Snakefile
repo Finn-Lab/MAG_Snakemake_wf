@@ -79,5 +79,5 @@ rule readcounts_coas:
             outf.writelines("Run\tReadcount\n")
             for run in input:
                 readcount = int(linecount(run))
-                line = "\t".join([run + str(readcount)])
+                line = run + "\t" + str(readcount)
                 outf.writelines(line + "\n")
