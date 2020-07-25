@@ -91,7 +91,7 @@ rule parse_dnadiff:
                         cols = line.split()
                         ident = float(cols[1])
             line = "%s\t%s\t%i\t%.2f\t%i\t%.2f\t%.2f" % (ref, quer, lenref, float(aliref), lenquer, float(alique), float(ident))
-            outf.writelines(line, "\n")
+            outf.writelines(line + "\n")
 
 
 
