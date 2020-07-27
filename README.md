@@ -14,7 +14,7 @@ Download all RefSeq bacterial genomes using:
 ```
 ncbi-genome-download bacteria --formats fasta --section refseq
 ```
-Next generate a Mash sketch of the database with default k-mer and sketch size using:
+Next generate a Mash sketch of the database with default k-mer and sketch size from the main directory using:
 
 ```
 mash sketch -o refseq.msh /path/to/RefSeq/*fasta
@@ -35,7 +35,11 @@ Then activate the environment before using snakemake:
 conda activate snakemake
 ```
 
+Install Singularity version 3.5.0
+
+
 ### Submitting jobs
+
 
 Submit jobs with SLURM scheduler:
 ```
