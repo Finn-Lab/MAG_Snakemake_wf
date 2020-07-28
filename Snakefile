@@ -19,7 +19,7 @@ import csv
 configfile: "config.yaml"
 
 # Directory structure
-DATA_DIR = config['data']
+DATA_DIR = "data" #config['data']
 preprocessing_dir = "00_preprocessing"
 assembly_dir = "01_assembly"
 binning_dir = "02_binning"
