@@ -19,14 +19,11 @@ import csv
 configfile: "config.yaml"
 
 # Directory structure
-DATA_DIR = "data"#config['data']
+DATA_DIR = config['data']
 preprocessing_dir = "00_preprocessing"
 assembly_dir = "01_assembly"
-assembly_dir_coas = "01_assembly_coas"
 binning_dir = "02_binning"
-binning_dir_coas = "02_binning_coas"
 binning_analyses = "03_binning_analyses"
-binning_analyses_coas = "03_binning_analyses_coas"
 if not os.path.exists("logs"):
     os.makedirs("logs")
 os.system("chmod +x scripts/*")
@@ -41,18 +38,18 @@ COAS = df_coas["coassembly"]
 
 
 all_outfiles = [
-    # Figure 2
+     # Figure 2
      join(DATA_DIR,preprocessing_dir, "raw_qc/multiqc/raw_multiqc_report.html"),
      join(DATA_DIR,preprocessing_dir, "postprocessing_qc/multiqc/post_multiqc_report.html"),
-    # Figure 3a
+     # Figure 3a
      join(DATA_DIR,"figures/cmseq_plot.png"),
      join(DATA_DIR,"figures/checkm_contam.png"),
      join(DATA_DIR,"figures/checkm_completeness.png"),
-    # Figure 3b
+     # Figure 3b
      join(DATA_DIR, "figures/dnadiff.png"),
-    # Figure 3c
+     # Figure 3c
      join(DATA_DIR,"figures/gtdb_bacteria.png"),
-    # Figure 4
+     # Figure 4
      join(DATA_DIR,"figures/perassemb_perref.png")
 ]
 
@@ -62,11 +59,11 @@ rule all:
 
 include: "modules/sra_download.Snakefile"
 include: "modules/preprocessing.Snakefile"
+include: "modules/coas.Snakefile"
 include: "modules/assembly.Snakefile"
 include: "modules/binning.Snakefile"
 include: "modules/refine.Snakefile"
 include: "modules/dRep_GTDB.Snakefile"
-include: "modules/coas.Snakefile"
 include: "modules/framework.Snakefile"
 include: "modules/refine_coas.Snakefile"
 include: "modules/cmseq.Snakefile"
