@@ -21,7 +21,7 @@ rule rename_fasta:
             "singlerun/cmseq/{sample}/refined_bins_50_10_renamed/{sample}_metawrap_refined_{file}.fa",
         ),
     params:
-        name="{sample}_metawrap_refined_{file}",
+        name="{sample}_{file}",
     shell:
         """
         scripts/rename_multifasta_prefix.py -f {input.MAG} -p {params.name} > {output}
@@ -63,7 +63,7 @@ rule rename_fasta_coas:
             "singlerun_coassembly/cmseq/{sample}/refined_bins_50_10_renamed/{sample}_metawrap_refined_{file}.fa",
         ),
     params:
-        name="{sample}_metawrap_refined_{file}",
+        name="{sample}_{file}",
     shell:
         """
         scripts/rename_multifasta_prefix.py -f {input.MAG} -p {params.name} > {output}
