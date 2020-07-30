@@ -184,7 +184,7 @@ rule append_cmseq:
             with open(filename, "r") as f:
                 lines = f.readlines()
                 if len(lines) > 1:
-                    lines_sub = lines[2].strip()
+                    lines_sub = lines[1].strip()
                     L = filename + "\t" + lines_sub + "\n"
                     file1.writelines(L)
         file1.close()
@@ -209,7 +209,7 @@ rule append_cmseq_coas:
             with open(filename, "r") as f:
                 lines = f.readlines()
                 if len(lines) > 1:
-                    lines_sub = lines[2]
+                    lines_sub = lines[1]
                     L = filename + "\t" + lines_sub + "\n"
                     file1.writelines(L)
         file1.close()
