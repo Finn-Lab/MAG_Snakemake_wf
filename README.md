@@ -38,7 +38,7 @@ conda activate snakemake
 ```
 
 Install Singularity version 3.5.0
-
+Running the pipeline will download the relevant singularity containers from Singularity Hub such that no additional tools need to be installed by the user.
 
 ### Submitting jobs
 
