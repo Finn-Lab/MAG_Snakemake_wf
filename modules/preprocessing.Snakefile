@@ -85,7 +85,7 @@ rule kneaddata_bowtie:
         --input {input.fwd} --input {input.rev}\
         --output {params.outdir} \
         --reference-db {params.indx} \
-        --trimmomatic-options "SLIDINGWINDOW:4:20 MINLEN:50" --trimmomatic /data/\
+        --trimmomatic-options "ILLUMINACLIP:/data/adapters/NexteraPE-PE.fa:2:30:10:SLIDINGWINDOW:4:20 MINLEN:50" --trimmomatic /data/\
         --bowtie2-options "--very-sensitive --dovetail"  --no-discordant
         scp {params.fwd} {output.fwd}
         scp {params.rev} {output.rev}
