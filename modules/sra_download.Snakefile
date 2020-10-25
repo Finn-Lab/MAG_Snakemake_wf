@@ -9,7 +9,8 @@ rule sra_download:
         time=5,
         mem=40,
     threads: workflow.cores
-    singularity: "shub://sskashaf/MAG_wf_containers:fastqdump"
+    singularity: "docker://quay.io/biocontainers/parallel-fastq-dump:0.6.3--py36_1"
+#"shub://sskashaf/MAG_wf_containers:fastqdump"
     params:
         outdir=join(DATA_DIR, "raw/"),
         run="{run}",

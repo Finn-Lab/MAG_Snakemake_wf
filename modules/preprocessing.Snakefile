@@ -1,23 +1,39 @@
 # vim::w set ft=python:
 
 
-rule raw_fastqc:
+rule raw_fastqc_fwd:
     input:
         fwd=join(DATA_DIR, "raw/{run}_1.fastq.gz"),
         rev=join(DATA_DIR, "raw/{run}_2.fastq.gz"),
     output:
         join(DATA_DIR, preprocessing_dir, "raw_qc/fastqc/{run}_1_fastqc.html"),
+    params:
+        outdir=directory(join(DATA_DIR, preprocessing_dir, "raw_qc/fastqc/")),
+    threads: workflow.cores
+    singularity:
+        "docker://quay.io/biocontainers/fastqc:0.11.7--4"
+    shell:
+        """
+        fastqc {input.fwd} --outdir {params.outdir}
+        """
+
+
+rule raw_fastqc_rev:
+    input:
+        fwd=join(DATA_DIR, "raw/{run}_1.fastq.gz"),
+        rev=join(DATA_DIR, "raw/{run}_2.fastq.gz"),
+    output:
         join(DATA_DIR, preprocessing_dir, "raw_qc/fastqc/{run}_2_fastqc.html"),
     params:
         outdir=directory(join(DATA_DIR, preprocessing_dir, "raw_qc/fastqc/")),
     threads: workflow.cores
     singularity:
-        "shub://sskashaf/MAG_wf_containers:preprocessing"
+        "docker://quay.io/biocontainers/fastqc:0.11.7--4"
     shell:
         """
-        fastqc {input.fwd} --outdir {params.outdir}
         fastqc {input.rev} --outdir {params.outdir}
         """
+
 
 
 rule raw_multiqc:
@@ -85,30 +101,45 @@ rule kneaddata_bowtie:
         --input {input.fwd} --input {input.rev}\
         --output {params.outdir} \
         --reference-db {params.indx} \
-        --trimmomatic-options "ILLUMINACLIP:/data/adapters/NexteraPE-PE.fa:2:30:10:SLIDINGWINDOW:4:20 MINLEN:50" --trimmomatic /data/\
+        --trimmomatic-options "ILLUMINACLIP:/data/adapters/TruSeq3-PE.fa:2:30:10: SLIDINGWINDOW:4:20 MINLEN:50" --trimmomatic /data/\
         --bowtie2-options "--very-sensitive --dovetail"  --no-discordant
         scp {params.fwd} {output.fwd}
         scp {params.rev} {output.rev}
         """
 
 
-rule postpreprocessing_fastqc:
+rule postpreprocessing_fastqc_fwd:
     input:
         fwd=join(DATA_DIR, preprocessing_dir, "processed/singlerun/{run}_1.fastq"),
         rev=join(DATA_DIR, preprocessing_dir, "processed/singlerun/{run}_2.fastq"),
     output:
         join(DATA_DIR, preprocessing_dir, "postprocessing_qc/fastqc/{run}_1_fastqc.html"),
+    params:
+        outdir=directory(join(DATA_DIR, preprocessing_dir, "postprocessing_qc/fastqc/")),
+    threads: workflow.cores
+    singularity:
+        "docker://quay.io/biocontainers/fastqc:0.11.7--4"
+    shell:
+        """
+        fastqc {input.fwd} --outdir {params.outdir}
+        """
+
+rule postpreprocessing_fastqc_rev:
+    input:
+        fwd=join(DATA_DIR, preprocessing_dir, "processed/singlerun/{run}_1.fastq"),
+        rev=join(DATA_DIR, preprocessing_dir, "processed/singlerun/{run}_2.fastq"),
+    output:
         join(DATA_DIR, preprocessing_dir, "postprocessing_qc/fastqc/{run}_2_fastqc.html"),
     params:
         outdir=directory(join(DATA_DIR, preprocessing_dir, "postprocessing_qc/fastqc/")),
     threads: workflow.cores
     singularity:
-        "shub://sskashaf/MAG_wf_containers:preprocessing"
+        "docker://quay.io/biocontainers/fastqc:0.11.7--4"
     shell:
         """
-        fastqc {input.fwd} --outdir {params.outdir}
         fastqc {input.rev} --outdir {params.outdir}
         """
+
 
 
 rule postpreprocessing_multiqc:
