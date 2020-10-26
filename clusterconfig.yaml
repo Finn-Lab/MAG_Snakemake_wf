@@ -40,7 +40,7 @@ zip_file:
     name      : "{rule}"
     output    : "logs/{rule}.%J.o"
     error     : "logs/{rule}.%J.e"
-    time      : "02:30:00"
+    time      : "04:30:00"
 
 
 
