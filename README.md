@@ -10,12 +10,12 @@
 - [CPU time](#CPU-time)
 - [Results](#results)
 - [License](./LICENSE)
-- [Issues](https://https://github.com/Finn-Lab/MAG_Snakemake_wf/issues)
+- [Issues](https://github.com/Finn-Lab/MAG_Snakemake_wf/issues)
 - [Citation](#citation)
 
 # Overview
 
-This protocol at its current form runs our pipeline for generating prokaryotic MAGs for a subset of our previous gut analyses. To run this pipeline on your own dataset, you need two files, which detail the co-assembly and single runs that you think are most suitable for your analyses. The file runs.txt has the SRA accession for the single run samples with a different accession in each line. The file coassembly_runs.txt specifies the co-assembly samples. This file is in tabular format with three columns, the first column specifies the name of the resulting co-assembly sample. The r1 and r2 columns specify the path of the forward and reverse reads constituting each co-assembly sample, with each read path separated by a comma. The forward and reverse reads must have the extensions _1.fastq and _2.fastq respectively. These files currently include a small subset of gut dataset previously examined by Almeida et al. There are 44 single runs and 3 co-assembly samples based on the metadata of age and geography. If the files are present locally, they should be placed in the subdirectory data/raw with respect to the Snakefile.  If the runs are not present locally the sra_download module will attempt to download the runs from the SRA using their SRA accession. 
+This pipeline at its current form generates prokaryotic MAGs for a subset of our previous gut analyses. To run this pipeline on your own dataset, you need two files, which detail the co-assembly and single runs that you think are most suitable for your analyses. The file runs.txt has the SRA accession for the single run samples with a different accession in each line. The file coassembly_runs.txt specifies the co-assembly samples. This file is in tabular format with three columns, the first column specifies the name of the resulting co-assembly sample. The r1 and r2 columns specify the path of the forward and reverse reads constituting each co-assembly sample, with each read path separated by a comma. The forward and reverse reads must have the extensions _1.fastq and _2.fastq respectively. These files currently include a small subset of gut dataset previously examined by Almeida et al. There are 44 single runs and 3 co-assembly samples based on the metadata of age and geography. If the files are present locally, they should be placed in the subdirectory data/raw with respect to the Snakefile.  If the runs are not present locally the sra_download module will attempt to download the runs from the SRA using their SRA accession to this directory. 
 
 
 # System Requirements
@@ -46,7 +46,7 @@ fastqc=0.11.7 (https://github.com/s-andrews/FastQC)
 
 multiqc=1.3 (https://github.com/ewels/MultiQC)
 
-kneaddata=0.7.4 with Trimmomatic=0.39 & Bowtie=2.4.2
+kneaddata=0.7.4 with Trimmomatic=0.39 & Bowtie=2.4.2 (https://github.com/biobakery/kneaddata)
 
 metaSPAdes (version 3.14.0) (https://github.com/ablab/spades)
 
@@ -73,6 +73,7 @@ samtools (version 1.9) (https://github.com/samtools/samtools) 
 ## Other
 
 RefSeq complete bacterial genomes (downloaded May 2020) (https://www.ncbi.nlm.nih.gov/refseq/)
+
 GTDB database (release 89) (https://data.ace.uq.edu.au/public/gtdb/data/releases/) 
 
 
