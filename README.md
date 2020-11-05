@@ -7,7 +7,7 @@
 - [System Requirements](#system-requirements)
 - [Workflow setup](#Workflow-setup)
 - [Running pipeline](#running-pipeline)
-- [CPUtime](#CPU-time)
+- [CPU time](#CPU-time)
 - [Results](#results)
 - [License](./LICENSE)
 - [Issues](https://https://github.com/Finn-Lab/MAG_Snakemake_wf/issues)
@@ -29,13 +29,46 @@ The CPU times below are generated using the cluster config file included in the 
 ## Software Requirements
 
 MAG Snakemake pipeline (https://github.com/Finn-Lab/MAG_Snakemake_wf)
+
 Singularity 3.5.0 (https://github.com/hpcng/singularity)
-Snakemake (version 5.18) (https://github.com/snakemake/snakemake). 
+
+Snakemake (version 5.18) (https://github.com/snakemake/snakemake) 
 
 Running the MAG Snakemake pipeline will automatically download the sequencing data from the SRA. It will also download the relevant singularity containers so the relevant software needed for our pipeline can be used. Alternatively, the tools can be manually downloaded from:
 
 ncbi-genome-download (version 0.3.0) (https://github.com/kblin/ncbi-genome-download)
-mash (version 2.2.1) (https://github.com/marbl/Mash) parallel-fastq-dump (version 0.6.6) & fastq-dump (version 2.8.0) (https://github.com/rvalieris/parallel-fastq-dump) fastqc=0.11.7 (https://github.com/s-andrews/FastQC) multiqc=1.3 (https://github.com/ewels/MultiQC) kneaddata=0.7.4 with Trimmomatic=0.39 & Bowtie=2.4.2 metaSPAdes (version 3.14.0) (https://github.com/ablab/spades) metaWRAP=1.2.2 (version ) (https://github.com/bxlab/metaWRAP) CheckM (version 1.0.12) (https://github.com/Ecogenomics/CheckM) Bowtie (version 2.4.1) (https://github.com/BenLangmead/bowtie2) Prokka (version 1.14.5) (https://github.com/tseemann/prokka) CMSeq (version 1.0) (https://bitbucket.org/CibioCM/cmseq) mummer (version 3.23) (https://github.com/mummer4/mummer) dRep (version 2.3.2) (https://github.com/MrOlm/drep) GTDB_Tk (version 1.2.0) (https://github.com/Ecogenomics/GTDBTk) bwa (version 0.7.17) (https://github.com/lh3/bwa) samtools (version 1.9) (https://github.com/samtools/samtools) 
+
+mash (version 2.2.1) (https://github.com/marbl/Mash)
+
+parallel-fastq-dump (version 0.6.6) & fastq-dump (version 2.8.0) (https://github.com/rvalieris/parallel-fastq-dump)
+
+fastqc=0.11.7 (https://github.com/s-andrews/FastQC)
+
+multiqc=1.3 (https://github.com/ewels/MultiQC)
+
+kneaddata=0.7.4 with Trimmomatic=0.39 & Bowtie=2.4.2
+
+metaSPAdes (version 3.14.0) (https://github.com/ablab/spades)
+
+metaWRAP=1.2.2 (version ) (https://github.com/bxlab/metaWRAP)
+
+CheckM (version 1.0.12) (https://github.com/Ecogenomics/CheckM)
+
+Bowtie (version 2.4.1) (https://github.com/BenLangmead/bowtie2)
+
+Prokka (version 1.14.5) (https://github.com/tseemann/prokka)
+
+CMSeq (version 1.0) (https://bitbucket.org/CibioCM/cmseq)
+
+mummer (version 3.23) (https://github.com/mummer4/mummer)
+
+dRep (version 2.3.2) (https://github.com/MrOlm/drep)
+
+GTDB_Tk (version 1.2.0) (https://github.com/Ecogenomics/GTDBTk)
+
+bwa (version 0.7.17) (https://github.com/lh3/bwa)
+
+samtools (version 1.9) (https://github.com/samtools/samtools) 
 
 ## Other
 
@@ -54,7 +87,7 @@ tar -xvzf gtdbtk_r89_data.tar.gz
 
 Download all RefSeq bacterial genomes using:
 ```
-ncbi-genome-download bacteria --formats fasta --section refseq
+ncbi-genome-download bacteria --formats fasta --section refseq --assembly-levels complete
 ```
 Next generate a Mash sketch of the database with default k-mer and sketch size from the main directory using:
 
@@ -98,20 +131,30 @@ Submit jobs with LSF scheduler:
 snakemake --use-singularity --restart-times 3 -k --jobs 50 --cluster-config clusterconfig.yaml --cluster "bsub -n {cluster.nCPU} -M {cluster.mem} -e {cluster.error} -o {cluster.output} -t {cluster.time}"
 ```
 
-# CPU time
+# CPU-time
 
 The CPU time for the demo dataset and the cluster configuration file provided is as follows:
 
 Data Download: 16 hours
+
 Preprocessing: 48 hours 
+
 Assembly/Co-assembly:  2600 hours
+
 Binning: 100 hours 
+
 Quality Assessment & Bin Refinement; Estimate completeness and contamination of MAGs: 25 hours
+
 Quality Assessment & Bin Refinement; Estimate strain heterogeneity of MAGs: 700 hours
+
 Quality Assessment & Bin Refinement; Compare MAGs to RefSeq genomes: 1 hour
+
 Quality Assessment & Bin Refinement; Bin refinement: 260 hours
+
 Dereplicate MAGs: 4 hours
+
 Taxonomic Classification: 3 hours
+
 Evaluate Bottlenecks: 120 hours
 
 
