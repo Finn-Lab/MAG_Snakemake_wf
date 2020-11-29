@@ -83,7 +83,6 @@ GTDB database (release 89) (https://data.ace.uq.edu.au/public/gtdb/data/releases
 Download the GTDB database using:
 ```
 wget https://data.ace.uq.edu.au/public/gtdb/data/releases/release89/89.0/gtdbtk_r89_data.tar.gz 
-tar -xvzf gtdbtk_r89_data.tar.gz
 ```
 
 Download all RefSeq bacterial genomes using:
