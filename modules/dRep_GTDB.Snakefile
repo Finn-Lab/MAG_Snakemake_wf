@@ -90,8 +90,7 @@ rule GTDB_TK:
         outdir=join(DATA_DIR, binning_analyses, "singlerun_coassembly/GTDB/"),
         ext="fa"
     singularity:
-        "docker://quay.io/biocontainers/gtdbtk:1.2.0--py_1"
-#        "shub://sskashaf/Containers:gtdbtk"
+        "docker://quay.io/biocontainers/gtdbtk:1.3.0--py_1"
     shell:
         """
         real=$(realpath {input.gtdbrelease})

@@ -15,7 +15,6 @@
 
 # vim: set ft=python:
 
-
 # READS MAPPING TO ASSEMBLY
 
 rule mapreads_scaffold:
@@ -69,11 +68,16 @@ rule aggregate_mapreads_scaffold:
                 run = str(i).split("singlerun/")[1]
                 run = run.split("/mapreads/")[0]
                 dict = eval(open(str(i), "r").read())
+                supplementary = dict["pass_qc"]["supplementary"]
+                secondary = dict["pass_qc"]["secondary"]
                 mapped = dict["pass_qc"]["mapped"]
                 total = dict["pass_qc"]["total"]
-                perc = (mapped / total) * 100
+                perc = (mapped - supplementary - secondary) 
                 outf.write(str(run) + "\t" + str(perc) + "\n")
         outf.close()
+
+
+
 
 
 # READ MAPPING TO MAGS
@@ -193,7 +197,7 @@ rule write_scaffold:
                 secondary = dict["pass_qc"]["secondary"]
                 mapped = dict["pass_qc"]["mapped"]
                 total = dict["pass_qc"]["total"]
-                perc = ((mapped - supplementary - secondary) / total) * 100
+                perc = (mapped - supplementary - secondary) 
                 outf.write(str(run) + "\t" + str(perc) + "\n")
         outf.close()
 
@@ -214,7 +218,7 @@ rule write_scaffold_coas:
                 secondary = dict["pass_qc"]["secondary"]
                 mapped = dict["pass_qc"]["mapped"]
                 total = dict["pass_qc"]["total"]
-                perc = ((mapped - supplementary - secondary) / total) * 100
+                perc = (mapped - supplementary - secondary) 
                 outf.write(str(run) + "\t" + str(perc) + "\n")
         outf.close()
 

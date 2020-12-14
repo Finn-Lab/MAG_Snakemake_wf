@@ -80,14 +80,14 @@ metawrap_binning_coas:
 
 bin_refinement:
     mem : 100000
-    nCPU: 30
+    nCPU: 5
     time : "5:00:00"
     output : "logs/{rule}.%J.o"
     error : "logs/{rule}.%J.e"
 
 bin_refinement_coas:
     mem : 100000
-    nCPU: 30
+    nCPU: 5
     time : "4-07:00:00"
     output : "logs/{rule}.%J.o"
     error : "logs/{rule}.%J.e"
@@ -169,7 +169,7 @@ dRep_95_coas:
     error : "logs/{rule}.%J.e"
 
 GTDB_TK:
-    mem : 400000
+    mem : 500000
     nCPU: 2
     time : "10:30:00"
     output : "logs/{rule}.%J.o"
