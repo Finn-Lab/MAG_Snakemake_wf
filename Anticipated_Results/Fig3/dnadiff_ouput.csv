@@ -1,4 +1,4 @@
-Reference,Query,Ref_length,Ref_covered,Query_covered,Queryaligned,ANI
+Reference,Query,Ref_length,Ref_aligned,Query_length,Query_aligned,ANI
 data/databases/refseq/GCF_000007585.1_ASM758v1_genomic.fna,SRR1761673_metawrap_refined_bin.9,2343476,0.09,2084648,0.03,82.15
 data/databases/refseq/GCF_000007585.1_ASM758v1_genomic.fna,SRR1761673_metawrap_refined_bin.8,2343476,0,2332641,0,0
 data/databases/refseq/GCF_005601135.1_ASM560113v1_genomic.fna,SRR1761673_metawrap_refined_bin.7,2440231,53.84,1628375,77.65,95.05
