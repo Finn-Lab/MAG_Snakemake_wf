@@ -236,7 +236,9 @@ rule plot_framework:
         join(DATA_DIR, "figures/perassemb_perref.png"),
     singularity:
         "shub://sskashaf/MAG_wf_containers:r"
+    params:
+        summary=join(DATA_DIR, binning_analyses, "singlerun_coassembly/framework/summary_framework.csv")
     shell:
         """
-        Rscript scripts/plotting/plot_framework.R {input.readcounts} {input.flagstat} {input.mapreads_sr} {input.mapreads_coas}
+        Rscript scripts/plotting/plot_framework.R {input.readcounts} {input.flagstat} {input.mapreads_sr} {input.mapreads_coas} {params.summary}
         """
