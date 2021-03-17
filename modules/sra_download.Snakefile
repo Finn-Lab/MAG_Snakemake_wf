@@ -33,5 +33,5 @@ rule sra_download:
         """
         echo {threads}
         prefetch {params.run} && vdb-validate {params.run} && parallel-fastq-dump --threads {threads} \
-        --outdir {params.outdir} --skip-technical --split-3 --sra-id {params.run} --gzip
+        --outdir {params.outdir} --skip-technical --split-3 --sra-id {params.run} --gzip --readids
         """
