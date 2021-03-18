@@ -117,7 +117,7 @@ rule kneaddata_bowtie:
         --output {params.outdir} \
         --reference-db {params.indx} \
         --trimmomatic-options "ILLUMINACLIP:/data/adapters/TruSeq3-PE.fa:2:30:10: SLIDINGWINDOW:4:20 MINLEN:50" --trimmomatic /data/\
-        --bowtie2-options "--very-sensitive --dovetail"  --no-discordant
+        --bowtie2-options "--very-sensitive --dovetail"
         scp {params.fwd} {output.fwd}
         scp {params.rev} {output.rev}
         """
