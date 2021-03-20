@@ -158,7 +158,7 @@ rule plot_dnadiff:
     output:
         join(DATA_DIR, "figures/dnadiff.png"),
     singularity:
-        "shub://sskashaf/MAG_wf_containers:r"
+        "shub://sskashaf/MAG_wf_containers_2021:r"
     shell:
         """
         Rscript scripts/plotting/dnadiff_plot.R {input.checkm_sr} {input.checkm_coas} {input.summ}

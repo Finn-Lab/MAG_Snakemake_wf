@@ -137,7 +137,7 @@ rule plot_checkm:
         barplot=join(DATA_DIR, "figures/checkm_completeness.png"),
         barplot2=join(DATA_DIR, "figures/checkm_contam.png"),
     singularity:
-        "shub://sskashaf/MAG_wf_containers:r"
+        "shub://sskashaf/MAG_wf_containers_2021:r"
     shell:
         """
         Rscript scripts/plotting/plot_checkm_mags.R {input.sr} {input.coas}

@@ -235,7 +235,7 @@ rule plot_framework:
     output:
         join(DATA_DIR, "figures/perassemb_perref.png"),
     singularity:
-        "shub://sskashaf/MAG_wf_containers:r"
+        "shub://sskashaf/MAG_wf_containers_2021:r"
     params:
         summary=join(DATA_DIR, binning_analyses, "singlerun_coassembly/framework/summary_framework.csv")
     shell:

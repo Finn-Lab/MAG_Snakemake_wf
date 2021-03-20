@@ -260,7 +260,7 @@ rule plot_cmseq:
     output:
         join(DATA_DIR, "figures/cmseq_plot.png"),
     singularity:
-        "shub://sskashaf/MAG_wf_containers:r"
+        "shub://sskashaf/MAG_wf_containers_2021:r"
     shell:
         """
         Rscript scripts/plotting/plot_cmseq.R {input.sr} {input.coas}
