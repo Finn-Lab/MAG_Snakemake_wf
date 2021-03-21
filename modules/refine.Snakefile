@@ -22,7 +22,7 @@ rule bin_refinement:
     output:
         join(DATA_DIR, binning_dir, "singlerun/{sample}/metawrap_bin_refinement/metawrap_50_10_bins/done.txt"),
     singularity:
-        "shub://sskashaf/MAG_wf_containers:metawrap"
+        "shub://sskashaf/Containers:metawrap"
     params:
         metabat=join(DATA_DIR, binning_dir, "singlerun/{sample}/metawrap/metabat2_bins"),
         maxbin=join(DATA_DIR, binning_dir, "singlerun/{sample}/metawrap/maxbin2_bins"),
@@ -97,7 +97,7 @@ rule checkm:
     output:
         join(DATA_DIR, binning_analyses, "singlerun/checkm/checkm_metrics.tsv"),
     singularity:
-        "shub://sskashaf/MAG_wf_containers:metawrap"
+        "shub://sskashaf/Containers:metawrap"
     params:
         ext="fa",
         indir=join(DATA_DIR, binning_analyses, "singlerun/all_metawrap_bins"),

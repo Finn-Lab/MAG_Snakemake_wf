@@ -81,7 +81,7 @@ rule kneaddata_download_database:
     params:
         outdir="data/databases/human_genome_index/",
     singularity:
-        "shub://sskashaf/MAG_wf_containers:preprocessing"
+        "shub://sskashaf/MAG_wf_containers_2021:metagenome_preprocessing"
     shell:
         """
         kneaddata_database --download human_genome bowtie2 {params.outdir}

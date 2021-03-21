@@ -82,7 +82,7 @@ GTDB database (release 89) (https://data.ace.uq.edu.au/public/gtdb/data/releases
 
 Download the GTDB database using:
 ```
-wget https://data.ace.uq.edu.au/public/gtdb/data/releases/release89/89.0/gtdbtk_r89_data.tar.gz 
+wget https://data.ace.uq.edu.au/public/gtdb/data/releases/release95/95.0/auxillary_files/gtdbtk_r95_data.tar.gz
 ```
 
 Download all RefSeq bacterial genomes using:
@@ -102,7 +102,7 @@ cd /path/to/MAG_Snakemake_wf/
 mkdir -p data/databases
 mv /path/to/refseq.msh data/databases
 mv /path/to/gtdbtk_r89_data.tar.gz data/databases
-tar -xvzf data/databases/gtdbtk_r89_data.tar.gz
+tar -xvzf data/databases/gtdbtk_r95_data.tar.gz
 ```
 
 Install snakemake into an environment using:
@@ -128,7 +128,7 @@ snakemake --use-singularity --restart-times 3 -k -j 50 --cluster-config clusterc
 
 Submit jobs with LSF scheduler:
 ```
-snakemake --use-singularity --restart-times 3 -k --jobs 50 --cluster-config clusterconfig.yaml --cluster "bsub -n {cluster.nCPU} -M {cluster.mem} -e {cluster.error} -o {cluster.output} -t {cluster.time}"
+snakemake --use-singularity --restart-times 3 -k --jobs 50 --cluster-config clusterconfig.yaml --cluster "bsub -n {cluster.nCPU} -M {cluster.mem} -e {cluster.error} -o {cluster.output}"
 ```
 
 # CPU-time

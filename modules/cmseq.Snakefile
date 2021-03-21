@@ -128,7 +128,7 @@ rule cmseq:
         join(DATA_DIR, binning_analyses, "singlerun/cmseq/{sample}/refined_bins_50_10_renamed/{sample}_metawrap_refined_{file}.cmseq.csv"),
     threads: workflow.cores
     singularity:
-        "shub://sskashaf/MAG_wf_containers:cmseq"
+        "shub://sskashaf/MAG_wf_containers_2021:cmseq"
     params:
         name=join(DATA_DIR, binning_analyses, "singlerun/cmseq/{sample}/refined_bins_50_10_renamed/{sample}_metawrap_refined_{file}"),
         dir=join(DATA_DIR, binning_analyses, "singlerun/cmseq/{sample}/refined_bins_50_10_renamed/"),
@@ -163,7 +163,7 @@ rule cmseq_coas:
         ),
     threads: workflow.cores
     singularity:
-        "shub://sskashaf/MAG_wf_containers:cmseq"
+        "shub://sskashaf/MAG_wf_containers_2021:cmseq"
     params:
         r1=lambda wildcards: get_sample_reads(wildcards.sample)["r1"],
         name=join(

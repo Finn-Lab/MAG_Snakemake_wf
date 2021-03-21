@@ -58,7 +58,7 @@ checkpoint metawrap_binning:
     output:
         outfile=join(DATA_DIR, binning_dir, "singlerun/{sample}/metawrap/done.txt"),
     singularity:
-        "shub://sskashaf/MAG_wf_containers:metawrap"
+        "shub://sskashaf/Containers:metawrap"
     params:
         outdir=join(DATA_DIR, binning_dir, "singlerun/{sample}/metawrap"),
         mincontiglength=2500,
@@ -89,7 +89,7 @@ checkpoint metawrap_binning_coas:
         reads=lambda wildcards: metawrap_cmmd(wildcards),
         mincontiglength=2500,
     singularity:
-        "shub://sskashaf/MAG_wf_containers:metawrap"
+        "shub://sskashaf/Containers:metawrap"
     threads: workflow.cores
     resources:
         time=lambda wildcards, attempt: 20 * attempt,
