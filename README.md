@@ -8,21 +8,19 @@
 - [Workflow setup](#Workflow-setup)
 - [Running pipeline](#running-pipeline)
 - [CPU time](#CPU-time)
-- [Results](#results)
 - [License](./LICENSE)
 - [Issues](https://github.com/Finn-Lab/MAG_Snakemake_wf/issues)
 - [Citation](#citation)
 
 # Overview
 
-This pipeline at its current form generates prokaryotic MAGs for a subset of our previous gut analyses. To run this pipeline on your own dataset, you need two files, which detail the co-assembly and single runs that you think are most suitable for your analyses. The file runs.txt has the SRA accession for the single run samples with a different accession in each line. The file coassembly_runs.txt specifies the co-assembly samples. This file is in tabular format with three columns, the first column specifies the name of the resulting co-assembly sample. The r1 and r2 columns specify the path of the forward and reverse reads constituting each co-assembly sample, with each read path separated by a comma. The forward and reverse reads must have the extensions _1.fastq and _2.fastq respectively. These files currently include a small subset of gut dataset previously examined by Almeida et al. There are 44 single runs and 3 co-assembly samples based on the metadata of age and geography. If the files are present locally, they should be placed in the subdirectory data/raw with respect to the Snakefile.  If the runs are not present locally the sra_download module will attempt to download the runs from the SRA using their SRA accession to this directory. 
-
+This pipeline can be used for recovery and quality assessment of prokaryotic MAGs from short-read, host-associated metagenomic datasets. The data analyzed is specificed using two files, which detail the co-assembly samples and single runs that are to be analyzed. The file runs.txt has the SRA accession for the single runs with a different accession in each line. The file coassembly_runs.txt specifies the co-assembly samples. This file is in tabular format with three columns, the first column specifies the name of the resulting co-assembly sample. The r1 and r2 columns specify the path of the forward and reverse reads constituting each co-assembly sample, with each read path separated by a comma. In this pipeline, we used a small subset of gut dataset previously analyzed by Almeida et al. There are 40 single runs and 2 co-assembly samples. The co-assembly samples are named based on the metadata that was chosen to perform co-assembly. If the runs are not publicly available, they should be placed in the subdirectory data/raw with respect to the Snakefile. The forward and reverse reads must have the extensions _1.fastq and _2.fastq respectively. Note that the version of kneaddata used in this pipeline still requires the read suffixes /1 and /2, so the headers must be formatted accordingly. If the runs are publicly available, specify them in the runs.txt file and the sra_download module will download the runs from the SRA using their SRA accession to the directory data/raw. 
 
 # System Requirements
 
 ## Hardware Requirements
 
-HPC with at least 350 gigabytes of memory
+HPC with at least 500 gigabytes of memory
 
 The CPU times below are generated using the cluster config file included in the repo
 
@@ -42,15 +40,15 @@ mash (version 2.2.1) (https://github.com/marbl/Mash)
 
 parallel-fastq-dump (version 0.6.6) & fastq-dump (version 2.8.0) (https://github.com/rvalieris/parallel-fastq-dump)
 
-fastqc=0.11.7 (https://github.com/s-andrews/FastQC)
+fastqc (version 0.11.7) (https://github.com/s-andrews/FastQC)
 
-multiqc=1.3 (https://github.com/ewels/MultiQC)
+multiqc (version 1.3) (https://github.com/ewels/MultiQC)
 
-kneaddata=0.7.4 with Trimmomatic=0.39 & Bowtie=2.4.2 (https://github.com/biobakery/kneaddata)
+kneaddata (version 0.7.4) with Trimmomatic (version 0.39) & Bowtie (version 2.4.2) (https://github.com/biobakery/kneaddata)
 
 metaSPAdes (version 3.14.0) (https://github.com/ablab/spades)
 
-metaWRAP=1.2.2 (version ) (https://github.com/bxlab/metaWRAP)
+metaWRAP (version 1.2.2) (https://github.com/bxlab/metaWRAP)
 
 CheckM (version 1.0.12) (https://github.com/Ecogenomics/CheckM)
 
@@ -74,7 +72,7 @@ samtools (version 1.9) (https://github.com/samtools/samtools) 
 
 RefSeq complete bacterial genomes (downloaded May 2020) (https://www.ncbi.nlm.nih.gov/refseq/)
 
-GTDB database (release 89) (https://data.ace.uq.edu.au/public/gtdb/data/releases/) 
+GTDB database (release 95) (https://data.ace.uq.edu.au/public/gtdb/data/releases/) 
 
 
 # Workflow setup
@@ -101,7 +99,7 @@ Download the code for the pipeline from (https://github.com/Finn-Lab/MAG_Snakema
 cd /path/to/MAG_Snakemake_wf/
 mkdir -p data/databases
 mv /path/to/refseq.msh data/databases
-mv /path/to/gtdbtk_r89_data.tar.gz data/databases
+mv /path/to/gtdbtk_r95_data.tar.gz data/databases
 tar -xvzf data/databases/gtdbtk_r95_data.tar.gz
 ```
 
@@ -158,12 +156,13 @@ Taxonomic Classification: 3 hours
 Evaluate Bottlenecks: 120 hours
 
 
-# Results
 
-To generate results from the associated paper, please select a figure to reproduce in the associated Snakefile.
 
 # Citation
+For a walk-through of this pipeline, please visit: 
+Saheb Kashaf, S., Almeida, A., Segre, J.A. et al. Recovering prokaryotic genomes from host-associated, short-read shotgun metagenomic sequencing data. Nat Protoc (2021). https://doi.org/10.1038/s41596-021-00508-2
 
+To generate results from the paper associated with this pipeline, please select a figure to reproduce in the Snakefile.
 
 
 
